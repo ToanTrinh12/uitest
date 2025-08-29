@@ -54,3 +54,38 @@ export default function FeaturedServices() {
     </Section>
   );
 }
+type Service = {
+  id: number;
+  title: string;
+  subtitle: string;
+  to: string;
+  image: string;
+  locked?: boolean;
+};
+
+const featuredServices: Service[] = [
+  {
+    id: 1,
+    title: "Giảm cân",
+    subtitle: "Làm đẹp",
+    to: "/service/1",
+    image: giamCan,
+    locked: false,
+  },
+  {
+    id: 2,
+    title: "Xóa cận",
+    subtitle: "Nhãn khoa",
+    to: "/service/2",
+    image: xoaCan,
+    locked: true,
+  },
+  {
+    id: 3,
+    title: "Trị nám",
+    subtitle: "Da liễu",
+    to: "/service/3",
+    image: triNam,
+    locked: false,
+  },
+];
