@@ -1,11 +1,4 @@
 import { Department, AvailableTimeSlots } from "@/types";
-import TeddyNH from "@/static/doctors/teddynh.png";
-import DinhLD from "@/static/doctors/dinhld.png";
-import XungTD from "@/static/doctors/xungtd.png";
-import TranHT from "@/static/doctors/tranht.png";
-import WilsonJ from "@/static/doctors/wilsonj.png";
-import HiddlestonT from "@/static/doctors/hiddlestont.png";
-import ViDN from "@/static/doctors/vidn.png";
 import exploreKidHeight from "@/static/explore/explore-kid-height.png";
 import exploreBeach from "@/static/explore/explore-beach.png";
 import exploreScientist from "@/static/explore/explore-scientist.png";
@@ -83,7 +76,7 @@ export async function mockDoctors() {
       title: "Phó Trưởng Khoa",
       languages: "Tiếng Việt, English",
       specialties: "Thần Kinh Nội Khoa, Chóng Mặt, Đau Đầu Chuyên Khoa",
-      image: ViDN,
+      image: "https://via.placeholder.com/150x150/4F46E5/FFFFFF?text=NV",
       isAvailable: Math.random() > 0.3,
     },
     {
@@ -92,7 +85,7 @@ export async function mockDoctors() {
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
-      image: DinhLD,
+      image: "https://via.placeholder.com/150x150/059669/FFFFFF?text=LDD",
       isAvailable: Math.random() > 0.3,
     },
     {
@@ -101,7 +94,7 @@ export async function mockDoctors() {
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English",
       specialties: "Nội Khoa, Bệnh Gan",
-      image: XungTD,
+      image: "https://via.placeholder.com/150x150/DC2626/FFFFFF?text=HX",
       isAvailable: Math.random() > 0.3,
     },
     {
@@ -110,7 +103,7 @@ export async function mockDoctors() {
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
-      image: TranHT,
+      image: "https://via.placeholder.com/150x150/7C3AED/FFFFFF?text=LTN",
       isAvailable: Math.random() > 0.3,
     },
     {
@@ -119,7 +112,7 @@ export async function mockDoctors() {
       title: "MD",
       languages: "Tiếng Việt, English",
       specialties: "Nội Khoa, Bệnh Gan",
-      image: WilsonJ,
+      image: "https://via.placeholder.com/150x150/EA580C/FFFFFF?text=JW",
       isAvailable: Math.random() > 0.3,
     },
     {
@@ -128,7 +121,7 @@ export async function mockDoctors() {
       title: "MD",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
-      image: HiddlestonT,
+      image: "https://via.placeholder.com/150x150/0891B2/FFFFFF?text=TH",
       isAvailable: Math.random() > 0.3,
     },
     {
@@ -137,7 +130,7 @@ export async function mockDoctors() {
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
-      image: TeddyNH,
+      image: "https://via.placeholder.com/150x150/BE185D/FFFFFF?text=TN",
       isAvailable: Math.random() > 0.3,
     },
   ];
