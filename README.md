@@ -1,4 +1,4 @@
-# ZaUI Doctor
+# MeLinh Hospital
 
 <p style="display: flex; flex-wrap: wrap; gap: 4px">
   <img alt="vite" src="https://img.shields.io/github/package-json/dependency-version/Zalo-MiniApp/zaui-doctor/dev/vite" />
@@ -29,7 +29,7 @@ A Zalo Mini App template perfect for hospitals, clinics, and healthcare provider
 ### Using Zalo Mini App Extension
 
 1. Install [Visual Studio Code](https://code.visualstudio.com/download) and [Zalo Mini App Extension](https://mini.zalo.me/docs/dev-tools).
-1. Click on **Create Project** > Choose **ZaUI Doctor** template > Wait until the generated project is ready.
+1. Click on **Create Project** > Choose **MeLinh Hospital** template > Wait until the generated project is ready.
 1. **Configure App ID** and **Install Dependencies**, then navigate to the **Run** panel > **Start** to develop your Mini App 🚀
 
 ### Using Zalo Mini App CLI
@@ -139,7 +139,7 @@ Modify `app-config.json` > `app.title` field.
 ```json
 {
    "app": {
-      "title": "ZaUI Doctor",
+      "title": "MeLinh Hospital",
 ```
 
 ### Change OA ID
