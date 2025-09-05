@@ -11,6 +11,7 @@ export default () => {
     build: {
       assetsInlineLimit: 0,
       target: "es2015",
+      outDir: "dist",
     },
     resolve: {
       alias: {

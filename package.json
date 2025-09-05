@@ -18,6 +18,8 @@
     "login": "zmp login",
     "start": "zmp start",
     "deploy": "zmp deploy",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\" | cat"
   },
   "dependencies": {
