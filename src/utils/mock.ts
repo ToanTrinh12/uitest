@@ -72,7 +72,7 @@ export async function mockDoctors() {
   return [
     {
       id: 1,
-      name: "Nguyễn Nhất Vĩ",
+      name: "Nguyễn Văn A",
       title: "Phó Trưởng Khoa",
       languages: "Tiếng Việt, English",
       specialties: "Thần Kinh Nội Khoa, Chóng Mặt, Đau Đầu Chuyên Khoa",
@@ -81,7 +81,7 @@ export async function mockDoctors() {
     },
     {
       id: 2,
-      name: "Lê Đa Đình",
+      name: "Nguyễn Văn B",
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
@@ -90,7 +90,7 @@ export async function mockDoctors() {
     },
     {
       id: 3,
-      name: "Hoàng Đình Xưng",
+      name: "Nguyễn Văn C",
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English",
       specialties: "Nội Khoa, Bệnh Gan",
@@ -99,7 +99,7 @@ export async function mockDoctors() {
     },
     {
       id: 4,
-      name: "Lê Thảo Nhi",
+      name: "Nguyễn Văn D",
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
@@ -108,7 +108,7 @@ export async function mockDoctors() {
     },
     {
       id: 5,
-      name: "John Wilson",
+      name: "Nguyễn Văn E",
       title: "MD",
       languages: "Tiếng Việt, English",
       specialties: "Nội Khoa, Bệnh Gan",
@@ -117,7 +117,7 @@ export async function mockDoctors() {
     },
     {
       id: 6,
-      name: "Tom Hiddleston",
+      name: "Nguyễn Văn F",
       title: "MD",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
@@ -126,7 +126,7 @@ export async function mockDoctors() {
     },
     {
       id: 7,
-      name: "TeddyNH",
+      name: "Nguyễn Văn G",
       title: "Trưởng Khoa",
       languages: "Tiếng Việt, English, 한국어",
       specialties: "Nội Khoa, Bệnh Gan",
