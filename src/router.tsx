@@ -151,16 +151,19 @@ export function getBasePath() {
   const urlParams = new URLSearchParams(window.location.search);
   const appEnv = urlParams.get("env");
 
+  // If running inside Zalo Mini App environments with an APP_ID, use the Zalo base path
   if (
-    import.meta.env.PROD ||
-    appEnv === "TESTING_LOCAL" ||
-    appEnv === "TESTING" ||
-    appEnv === "DEVELOPMENT"
+    (import.meta.env.PROD ||
+      appEnv === "TESTING_LOCAL" ||
+      appEnv === "TESTING" ||
+      appEnv === "DEVELOPMENT") &&
+    (window as any).APP_ID
   ) {
-    return `/zapps/${window.APP_ID}`;
+    return `/zapps/${(window as any).APP_ID}`;
   }
 
-  return window.BASE_PATH || "";
+  // Default for web (e.g., Vercel) is empty base path
+  return (window as any).BASE_PATH || "";
 }
 
 export default router;
