@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useAtom } from "jotai";
 import { 
   doctorsState, 
   servicesState, 
   departmentsState, 
   articlesState,
   schedulesState,
-  invoicesState 
+  invoicesState,
+  bookingsAtom,
+  clearBookingsAtom
 } from "@/state";
 import Section from "@/components/section";
 
@@ -171,6 +173,8 @@ function AdminPage() {
   const articlesPromise = useAtomValue(articlesState);
   const schedulesPromise = useAtomValue(schedulesState);
   const invoicesPromise = useAtomValue(invoicesState);
+  const bookings = useAtomValue(bookingsAtom);
+  const [, clearBookings] = useAtom(clearBookingsAtom);
 
   // Load data from promises
   useEffect(() => {
@@ -221,7 +225,7 @@ function AdminPage() {
     { id: 'services', label: 'Dịch vụ', data: data.services },
     { id: 'departments', label: 'Khoa', data: data.departments },
     { id: 'articles', label: 'Tin tức', data: data.articles },
-    { id: 'schedules', label: 'Lịch khám', data: data.schedules },
+    { id: 'schedules', label: 'Lịch khám', data: bookings.length > 0 ? bookings : data.schedules },
     { id: 'invoices', label: 'Hóa đơn', data: data.invoices },
   ];
 
@@ -291,6 +295,9 @@ function AdminPage() {
             <p className="text-sm text-blue-700">
               <strong>Debug:</strong> Đã tải {data.doctors.length} bác sĩ, {data.services.length} dịch vụ, {data.departments.length} khoa
             </p>
+            <p className="text-sm text-blue-700">
+              <strong>Bookings:</strong> {bookings.length} đặt lịch thực tế, {data.schedules.length} đặt lịch mock
+            </p>
           </div>
         </div>
 
@@ -328,7 +335,7 @@ function AdminPage() {
         {/* Export/Import Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <h3 className="text-lg font-bold text-gray-800 mb-4">Xuất/Nhập dữ liệu</h3>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <button
               onClick={() => {
                 const data = currentTab?.data;
@@ -374,6 +381,19 @@ function AdminPage() {
             >
               Nhập JSON
             </button>
+            {activeTab === 'schedules' && (
+              <button
+                onClick={() => {
+                  if (confirm('Bạn có chắc chắn muốn xóa tất cả đặt lịch thực tế?')) {
+                    clearBookings();
+                    alert('Đã xóa tất cả đặt lịch thực tế!');
+                  }
+                }}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              >
+                Xóa đặt lịch thực tế
+              </button>
+            )}
           </div>
         </div>
 

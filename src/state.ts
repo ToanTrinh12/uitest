@@ -55,7 +55,41 @@ export const departmentGroupsState =
 
 export const departmentsState = atom<Promise<Department[]>>(mockDepartments);
 
-export const schedulesState = atom<Promise<Booking[]>>(mockBookings);
+// Dynamic bookings state that can be updated
+export const bookingsAtom = atom<Booking[]>([]);
+
+// Initialize with mock data
+export const schedulesState = atom<Promise<Booking[]>>(async (get) => {
+  const currentBookings = get(bookingsAtom);
+  if (currentBookings.length === 0) {
+    // Load mock data initially
+    const mockData = await mockBookings();
+    return mockData;
+  }
+  return currentBookings;
+});
+
+// Function to add new booking
+export const addBookingAtom = atom(
+  null,
+  (get, set, newBooking: Omit<Booking, 'id'>) => {
+    const currentBookings = get(bookingsAtom);
+    const newId = Math.max(...currentBookings.map(b => b.id), 0) + 1;
+    const booking: Booking = {
+      ...newBooking,
+      id: newId,
+    };
+    set(bookingsAtom, [...currentBookings, booking]);
+  }
+);
+
+// Function to clear all bookings
+export const clearBookingsAtom = atom(
+  null,
+  (get, set) => {
+    set(bookingsAtom, []);
+  }
+);
 
 export const invoicesState = atom<Promise<Invoice[]>>(mockInvoices);
 
