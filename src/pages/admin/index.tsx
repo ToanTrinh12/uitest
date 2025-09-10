@@ -147,14 +147,67 @@ function AdminPage() {
   const [editingItem, setEditingItem] = useState<DataItem | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<{
+    doctors: DataItem[];
+    services: DataItem[];
+    departments: DataItem[];
+    articles: DataItem[];
+    schedules: DataItem[];
+    invoices: DataItem[];
+  }>({
+    doctors: [],
+    services: [],
+    departments: [],
+    articles: [],
+    schedules: [],
+    invoices: [],
+  });
 
   // Load data from atoms
-  const doctors = useAtomValue(doctorsState);
-  const services = useAtomValue(servicesState);
-  const departments = useAtomValue(departmentsState);
-  const articles = useAtomValue(articlesState);
-  const schedules = useAtomValue(schedulesState);
-  const invoices = useAtomValue(invoicesState);
+  const doctorsPromise = useAtomValue(doctorsState);
+  const servicesPromise = useAtomValue(servicesState);
+  const departmentsPromise = useAtomValue(departmentsState);
+  const articlesPromise = useAtomValue(articlesState);
+  const schedulesPromise = useAtomValue(schedulesState);
+  const invoicesPromise = useAtomValue(invoicesState);
+
+  // Load data from promises
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        console.log('Loading data...');
+        
+        const [doctors, services, departments, articles, schedules, invoices] = await Promise.all([
+          doctorsPromise,
+          servicesPromise,
+          departmentsPromise,
+          articlesPromise,
+          schedulesPromise,
+          invoicesPromise,
+        ]);
+
+        console.log('Loaded data:', { doctors, services, departments, articles, schedules, invoices });
+
+        setData({
+          doctors: Array.isArray(doctors) ? doctors : [],
+          services: Array.isArray(services) ? services : [],
+          departments: Array.isArray(departments) ? departments : [],
+          articles: Array.isArray(articles) ? articles : [],
+          schedules: Array.isArray(schedules) ? schedules : [],
+          invoices: Array.isArray(invoices) ? invoices : [],
+        });
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
+  }, [doctorsPromise, servicesPromise, departmentsPromise, articlesPromise, schedulesPromise, invoicesPromise]);
 
   // Simple authorization check (you can enhance this)
   useEffect(() => {
@@ -164,12 +217,12 @@ function AdminPage() {
   }, []);
 
   const tabs = [
-    { id: 'doctors', label: 'Bác sĩ', data: doctors },
-    { id: 'services', label: 'Dịch vụ', data: services },
-    { id: 'departments', label: 'Khoa', data: departments },
-    { id: 'articles', label: 'Tin tức', data: articles },
-    { id: 'schedules', label: 'Lịch khám', data: schedules },
-    { id: 'invoices', label: 'Hóa đơn', data: invoices },
+    { id: 'doctors', label: 'Bác sĩ', data: data.doctors },
+    { id: 'services', label: 'Dịch vụ', data: data.services },
+    { id: 'departments', label: 'Khoa', data: data.departments },
+    { id: 'articles', label: 'Tin tức', data: data.articles },
+    { id: 'schedules', label: 'Lịch khám', data: data.schedules },
+    { id: 'invoices', label: 'Hóa đơn', data: data.invoices },
   ];
 
   const handleEdit = (item: DataItem) => {
@@ -204,6 +257,18 @@ function AdminPage() {
     );
   }
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <h2 className="text-xl font-bold text-gray-800 mb-2">Đang tải dữ liệu...</h2>
+          <p className="text-gray-600">Vui lòng chờ trong giây lát</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto px-4 py-8">
@@ -220,6 +285,13 @@ function AdminPage() {
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Quản trị dữ liệu MeLinh Hospital</h1>
           <p className="text-gray-600">Quản lý thông tin bác sĩ, dịch vụ, khoa và các dữ liệu khác</p>
+          
+          {/* Debug info */}
+          <div className="mt-4 p-3 bg-blue-50 rounded-md">
+            <p className="text-sm text-blue-700">
+              <strong>Debug:</strong> Đã tải {data.doctors.length} bác sĩ, {data.services.length} dịch vụ, {data.departments.length} khoa
+            </p>
+          </div>
         </div>
 
         {/* Tabs */}
