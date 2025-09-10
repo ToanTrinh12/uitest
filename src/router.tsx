@@ -17,6 +17,7 @@ import SearchResultPage from "./pages/search";
 import { ErrorBoundary } from "./components/error-boundary";
 import DepartmentDetailPage from "./pages/detail/department";
 import NewsPage from "./pages/news";
+import AdminPage from "./pages/admin";
 
 const router = createBrowserRouter(
   [
@@ -142,6 +143,11 @@ const router = createBrowserRouter(
         },
       ],
       ErrorBoundary,
+    },
+    // Admin route outside of Layout
+    {
+      path: "/admin",
+      element: <AdminPage />,
     },
   ],
   { basename: getBasePath() }
