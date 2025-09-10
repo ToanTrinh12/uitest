@@ -36,6 +36,7 @@ import {
 import { getUserInfo } from "zmp-sdk";
 import { toLowerCaseNonAccentVietnamese, wait } from "./utils/miscellaneous";
 import { NotifiableError } from "./utils/errors";
+import { isZaloEnvironment, getMockUserData } from "./utils/environment";
 
 /**
  * Listings
@@ -148,13 +149,18 @@ export const searchResultState = atomFamily((keyword: string) =>
 );
 
 export const userState = atomWithRefresh(() => {
-  return getUserInfo({
-    avatarType: "normal",
-  }).catch(() => {
-    throw new NotifiableError(
-      "Vui lòng cho phép truy cập tên và ảnh đại diện!"
-    );
-  });
+  if (isZaloEnvironment()) {
+    return getUserInfo({
+      avatarType: "normal",
+    }).catch(() => {
+      throw new NotifiableError(
+        "Vui lòng cho phép truy cập tên và ảnh đại diện!"
+      );
+    });
+  } else {
+    // Mock user data for web environment
+    return Promise.resolve(getMockUserData());
+  }
 });
 
 /**

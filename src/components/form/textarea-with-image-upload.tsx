@@ -3,6 +3,7 @@ import { Input } from "zmp-ui";
 import { PlusIcon } from "../icons/plus-icon";
 import { chooseImage } from "zmp-sdk";
 import { TextAreaProps } from "zmp-ui/input";
+import { isZaloEnvironment } from "@/utils/environment";
 
 interface TextareaWithImageUploadProps {
   textarea: {
@@ -30,10 +31,36 @@ function TextareaWithImageUpload({
   };
 
   const handleImageUpload = async () => {
-    const { filePaths } = await chooseImage({
-      count: 5,
-    });
-    images.onChange(images.values.concat(filePaths));
+    if (isZaloEnvironment()) {
+      const { filePaths } = await chooseImage({
+        count: 5,
+      });
+      images.onChange(images.values.concat(filePaths));
+    } else {
+      // For web environment, use file input
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.multiple = true;
+      input.onchange = (e) => {
+        const files = (e.target as HTMLInputElement).files;
+        if (files) {
+          const filePaths: string[] = [];
+          Array.from(files).forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const result = e.target?.result as string;
+              filePaths.push(result);
+              if (filePaths.length === files.length) {
+                images.onChange(images.values.concat(filePaths));
+              }
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      };
+      input.click();
+    }
   };
 
   return (

@@ -19,6 +19,7 @@ import eye from "@/static/services/eye.svg";
 import chatOa from "@/static/services/chat-oa.svg";
 import { openChat } from "zmp-sdk";
 import { getConfig } from "@/utils/miscellaneous";
+import { isZaloEnvironment } from "@/utils/environment";
 
 function ServicesPage() {
   return (
@@ -44,12 +45,18 @@ function ServicesPage() {
           <ServiceItem
             icon={chatOa}
             label="Chat OA"
-            onClick={() =>
-              openChat({
-                type: "oa",
-                id: getConfig((c) => c.template.oaID),
-              })
-            }
+            onClick={() => {
+              if (isZaloEnvironment()) {
+                openChat({
+                  type: "oa",
+                  id: getConfig((c) => c.template.oaID),
+                });
+              } else {
+                // For web environment, open Zalo chat in new tab
+                const oaId = getConfig((c) => c.template.oaID);
+                window.open(`https://zalo.me/${oaId}`, '_blank');
+              }
+            }}
           />
           <ServiceItem
             icon={heartAndPill}
